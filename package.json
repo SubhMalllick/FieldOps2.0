@@ -6,7 +6,11 @@
   "dependencies": {
     "nodemailer": "^6.9.7"
   },
+  "engines": {
+    "node": ">=18.x"
+  },
   "scripts": {
-    "dev": "vercel dev"
+    "dev": "vercel dev",
+    "build": "echo 'No build step needed for static site'"
   }
 }
