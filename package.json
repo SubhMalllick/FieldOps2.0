@@ -1,0 +1,12 @@
+{
+  "name": "fieldops-website",
+  "version": "1.0.0",
+  "description": "FieldOps Smart Verification Platform",
+  "type": "module",
+  "dependencies": {
+    "nodemailer": "^6.9.7"
+  },
+  "scripts": {
+    "dev": "vercel dev"
+  }
+}
