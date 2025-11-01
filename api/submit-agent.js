@@ -1,4 +1,4 @@
-import { sendEmail, formatBusinessEmail } from '../../utils/email-handler.js';
+import { sendEmail, formatAgentEmail } from '../../utils/email-handler.js';
 
 export default async function handler(req, res) {
   // Set CORS headers
@@ -19,15 +19,15 @@ export default async function handler(req, res) {
     const data = req.body;
 
     // Basic validation
-    if (!data.companyName || !data.email || !data.fullName) {
+    if (!data.fullName || !data.email || !data.phone) {
       return res.status(400).json({ 
         success: false, 
-        message: 'Missing required fields: Company Name, Email, and Full Name are required.' 
+        message: 'Missing required fields: Full Name, Email, and Phone are required.' 
       });
     }
 
     // Format email content
-    const emailContent = formatBusinessEmail(data);
+    const emailContent = formatAgentEmail(data);
     
     // Send email notification
     await sendEmail({
@@ -35,9 +35,10 @@ export default async function handler(req, res) {
       ...emailContent
     });
 
-    console.log('Business registration processed:', { 
-      company: data.companyName, 
+    console.log('Field executive registration processed:', { 
+      name: data.fullName, 
       email: data.email,
+      location: `${data.city}, ${data.state}`,
       timestamp: new Date().toISOString()
     });
 
@@ -47,7 +48,7 @@ export default async function handler(req, res) {
     });
 
   } catch (error) {
-    console.error('Error processing business registration:', error);
+    console.error('Error processing agent registration:', error);
     return res.status(500).json({ 
       success: false, 
       message: 'Internal server error. Please try again or contact support.' 
